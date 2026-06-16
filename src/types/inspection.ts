@@ -27,6 +27,7 @@ export interface Inspection {
   averageScore: number;
   inspectorName?: string;
   inspectorEmail?: string;
+  auditId?: string;
 }
 
 export interface InspectionContextType {
@@ -36,6 +37,8 @@ export interface InspectionContextType {
   setCurrentInspection: (inspection: Inspection | null) => void;
   startNewInspection: (neighborhood: string, forceNew?: boolean) => Promise<{ hasExisting: boolean; existingInspection?: Inspection; newInspection?: Inspection }>;
   continueExistingInspection: (neighborhood: string) => Promise<boolean>;
+  startAuditNeighborhoodInspection: (neighborhoodName: string, auditId: string, auditNeighborhoodId: string) => Promise<Inspection | null>;
+  continueAuditNeighborhood: (inspectionId: string) => Promise<boolean>;
   updateItemScore: (itemId: string, score: number | string) => void;
   saveInspection: () => Promise<boolean>;
   submitInspection: () => Promise<void>;

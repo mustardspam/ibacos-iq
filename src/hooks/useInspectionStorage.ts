@@ -54,12 +54,17 @@ export const useInspectionStorage = () => {
     return savedInspections;
   }, [savedInspections]);
 
+  const getInspectionByIdFromDB = useCallback(async (id: string) => {
+    return await inspectionService.getInspectionById(id);
+  }, []);
+
   return {
     savedInspections,
     setSavedInspections,
     saveInspectionToStorage,
     findExistingInspection,
     getInspectionById,
+    getInspectionByIdFromDB,
     deleteInspectionFromStorage,
     getAllInspections,
     loading

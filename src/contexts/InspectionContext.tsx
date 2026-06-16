@@ -28,6 +28,7 @@ export const InspectionProvider: React.FC<InspectionProviderProps> = ({ children
     saveInspectionToStorage,
     findExistingInspection,
     getInspectionById,
+    getInspectionByIdFromDB,
     deleteInspectionFromStorage,
     getAllInspections,
     loading
@@ -36,6 +37,8 @@ export const InspectionProvider: React.FC<InspectionProviderProps> = ({ children
   const {
     startNewInspection,
     continueExistingInspection,
+    startAuditNeighborhoodInspection,
+    continueAuditNeighborhood,
     updateItemScore,
     saveInspection,
     submitInspection,
@@ -47,6 +50,7 @@ export const InspectionProvider: React.FC<InspectionProviderProps> = ({ children
     saveInspectionToStorage,
     findExistingInspection,
     getInspectionById,
+    getInspectionByIdFromDB,
     deleteInspectionFromStorage
   });
 
@@ -81,6 +85,8 @@ export const InspectionProvider: React.FC<InspectionProviderProps> = ({ children
     setCurrentInspection,
     startNewInspection,
     continueExistingInspection,
+    startAuditNeighborhoodInspection,
+    continueAuditNeighborhood,
     updateItemScore,
     saveInspection,
     submitInspection,

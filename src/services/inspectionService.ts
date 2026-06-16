@@ -28,6 +28,7 @@ export const inspectionService = {
         averageScore: inspection.average_score || 0,
         inspectorName: inspection.inspector_name,
         inspectorEmail: inspection.inspector_email,
+        auditId: inspection.audit_id || undefined,
         items: (inspection.inspection_items || []).map((item: any) => ({
           id: item.item_id,
           category: item.category,
@@ -66,6 +67,7 @@ export const inspectionService = {
         inspector_name: inspection.inspectorName,
         inspector_email: inspection.inspectorEmail,
         inspector_id: user.user?.id,
+        audit_id: inspection.auditId || null,
         updated_at: new Date().toISOString()
       };
 
@@ -175,6 +177,43 @@ export const inspectionService = {
       };
     } catch (error) {
       console.error('Error finding existing inspection:', error);
+      return null;
+    }
+  },
+
+  async getInspectionById(id: string): Promise<Inspection | null> {
+    try {
+      const { data, error } = await supabase
+        .from('inspections')
+        .select('*, inspection_items(*)')
+        .eq('id', id)
+        .single();
+
+      if (error || !data) return null;
+
+      return {
+        id: data.id,
+        neighborhood: data.neighborhood,
+        date: data.date,
+        status: data.status as 'in-progress' | 'completed',
+        totalScore: data.total_score || 0,
+        maxScore: data.max_score || 0,
+        averageScore: data.average_score || 0,
+        inspectorName: data.inspector_name,
+        inspectorEmail: data.inspector_email,
+        auditId: (data as any).audit_id || undefined,
+        items: (data.inspection_items || []).map((item: any) => ({
+          id: item.item_id,
+          category: item.category,
+          subcategory: item.subcategory,
+          item: item.item_name,
+          weight: item.weight,
+          score: item.score === 'null' ? null : (isNaN(Number(item.score)) ? item.score : Number(item.score)),
+          scoreDescriptions: item.score_descriptions || { 0: '', 1: '', 2: '', 3: '', 4: '' }
+        }))
+      };
+    } catch (error) {
+      console.error('Error fetching inspection by id:', error);
       return null;
     }
   },

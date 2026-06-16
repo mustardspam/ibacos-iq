@@ -272,6 +272,7 @@ const UserManager = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="inspector">Inspector</SelectItem>
+                    <SelectItem value="viewer">Viewer</SelectItem>
                     <SelectItem value="admin">Admin</SelectItem>
                   </SelectContent>
                 </Select>

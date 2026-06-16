@@ -4,6 +4,7 @@ import { allInspectionItems } from '@/data/inspectionItems';
 import { calculateWeightedAverageScore, calculateTotalScore } from '@/utils/inspectionCalculations';
 import { downloadPDF } from '@/utils/pdfGenerator';
 import { supabase } from '@/integrations/supabase/client';
+import { auditService } from '@/services/auditService';
 import { toast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -13,6 +14,7 @@ interface UseInspectionActionsProps {
   saveInspectionToStorage: (inspection: Inspection) => Promise<boolean>;
   findExistingInspection: (neighborhood: string) => Promise<Inspection | null>;
   getInspectionById: (inspectionId: string) => Inspection | undefined;
+  getInspectionByIdFromDB: (inspectionId: string) => Promise<Inspection | null>;
   deleteInspectionFromStorage: (inspectionId: string) => Promise<boolean>;
 }
 
@@ -22,6 +24,7 @@ export const useInspectionActions = ({
   saveInspectionToStorage,
   findExistingInspection,
   getInspectionById,
+  getInspectionByIdFromDB,
   deleteInspectionFromStorage
 }: UseInspectionActionsProps) => {
   const { user, profile } = useAuth();
@@ -153,6 +156,45 @@ export const useInspectionActions = ({
     setCurrentInspection(null);
   }, [currentInspection, saveInspectionToStorage, setCurrentInspection]);
 
+  // Start an inspection that belongs to an audit neighborhood slot.
+  // Saves immediately so the DB row exists for the audit link.
+  const startAuditNeighborhoodInspection = useCallback(async (
+    neighborhoodName: string,
+    auditId: string,
+    auditNeighborhoodId: string
+  ): Promise<Inspection | null> => {
+    const newInspection: Inspection = {
+      id: crypto.randomUUID(),
+      neighborhood: neighborhoodName,
+      date: new Date().toISOString(),
+      status: 'in-progress',
+      items: allInspectionItems.map(item => ({ ...item, score: null })),
+      totalScore: 0,
+      maxScore: allInspectionItems.length * 4,
+      averageScore: 0,
+      inspectorName: profile?.name || user?.email || 'Unknown',
+      inspectorEmail: user?.email || 'unknown@email.com',
+      auditId,
+    };
+
+    setCurrentInspection(newInspection);
+    const saved = await saveInspectionToStorage(newInspection);
+    if (saved) {
+      await auditService.linkInspectionToNeighborhood(auditNeighborhoodId, newInspection.id);
+    }
+    return newInspection;
+  }, [saveInspectionToStorage, setCurrentInspection, user, profile]);
+
+  // Load an audit neighborhood inspection from DB by its inspection ID.
+  const continueAuditNeighborhood = useCallback(async (inspectionId: string): Promise<boolean> => {
+    const inspection = await getInspectionByIdFromDB(inspectionId);
+    if (inspection) {
+      setCurrentInspection(inspection);
+      return true;
+    }
+    return false;
+  }, [getInspectionByIdFromDB, setCurrentInspection]);
+
   const loadInspection = useCallback((inspectionId: string) => {
     const inspection = getInspectionById(inspectionId);
     if (inspection) {
@@ -186,6 +228,8 @@ export const useInspectionActions = ({
   return {
     startNewInspection,
     continueExistingInspection,
+    startAuditNeighborhoodInspection,
+    continueAuditNeighborhood,
     updateItemScore,
     saveInspection,
     submitInspection,

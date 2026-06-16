@@ -7,19 +7,19 @@ import InspectionItemPhoto from './InspectionItemPhoto';
 import { useInspectionPhotos } from '@/hooks/useInspectionPhotos';
 
 const scoreLabels = {
-  'N/O': 'Not Observed',
-  0: 'Poor (0)',
-  1: 'Below Average (1)', 
-  2: 'Average (2)',
-  3: 'Good (3)',
-  4: 'Excellent (4)'
+  'N/O': 'N/O',
+  0: '0 – Poor',
+  1: '1 – Below Avg',
+  2: '2 – Average',
+  3: '3 – Good',
+  4: '4 – Excellent'
 };
 
 const scoreColors = {
   'N/O': 'bg-gray-500 hover:bg-gray-600',
   0: 'bg-red-500 hover:bg-red-600',
   1: 'bg-orange-500 hover:bg-orange-600',
-  2: 'bg-yellow-500 hover:bg-yellow-600', 
+  2: 'bg-yellow-500 hover:bg-yellow-600',
   3: 'bg-blue-500 hover:bg-blue-600',
   4: 'bg-green-500 hover:bg-green-600'
 };
@@ -40,86 +40,86 @@ const InspectionCategoryForm = ({ category }: InspectionCategoryFormProps) => {
   const subcategories = [...new Set(categoryItems.map(item => item.subcategory))].sort();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Category Header */}
       <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
+        <CardHeader className="pb-3 md:pb-6">
+          <div className="flex items-center justify-between gap-2">
             <div>
-              <CardTitle className="text-2xl">{category}</CardTitle>
-              <Badge variant="secondary" className="mt-2">
+              <CardTitle className="text-lg md:text-2xl">{category}</CardTitle>
+              <Badge variant="secondary" className="mt-1.5 text-xs">
                 Weight: {categoryWeight}
               </Badge>
             </div>
-            <Badge variant="outline" className="text-lg px-4 py-2">
-              {completedItems}/{categoryItems.length} Complete
+            <Badge variant="outline" className="text-sm md:text-lg px-2 md:px-4 py-1 md:py-2 flex-shrink-0">
+              {completedItems}/{categoryItems.length}
             </Badge>
           </div>
-          <CardDescription className="text-base">
-            Score each item based on quality and workmanship (0-4 scale)
+          <CardDescription className="text-sm mt-1">
+            Score 0–4 or N/O for each item
           </CardDescription>
         </CardHeader>
       </Card>
 
       {/* Subcategories */}
-      <div className="space-y-8">
+      <div className="space-y-4 md:space-y-8">
         {subcategories.map((subcategory) => {
           const subcategoryItems = categoryItems.filter(item => item.subcategory === subcategory);
-          
+
           return (
             <Card key={subcategory} className="border-l-4 border-blue-500">
-              <CardHeader>
-                <CardTitle className="text-xl text-blue-700">{subcategory}</CardTitle>
-                <CardDescription className="text-sm">
-                  {subcategoryItems.length} items in this subcategory
+              <CardHeader className="pb-2 md:pb-4">
+                <CardTitle className="text-base md:text-xl text-blue-700">{subcategory}</CardTitle>
+                <CardDescription className="text-xs md:text-sm">
+                  {subcategoryItems.length} item{subcategoryItems.length !== 1 ? 's' : ''}
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-4 md:space-y-6">
                 {subcategoryItems.map((inspectionItem) => (
-                  <div key={inspectionItem.id} className="border rounded-lg p-6 bg-gray-50">
-                    <div className="mb-4">
-                      <h4 className="font-semibold text-lg text-gray-900 mb-2">{inspectionItem.item}</h4>
-                    </div>
-                    
-                    <div className="space-y-4">
-                      {/* Score Buttons - Updated to include N/O */}
-                      <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+                  <div key={inspectionItem.id} className="border rounded-lg p-3 md:p-6 bg-gray-50">
+                    <h4 className="font-semibold text-sm md:text-lg text-gray-900 mb-3">
+                      {inspectionItem.item}
+                    </h4>
+
+                    <div className="space-y-3 md:space-y-4">
+                      {/* Score Buttons — 3-column on mobile, 6-column on desktop */}
+                      <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
                         {(['N/O', 0, 1, 2, 3, 4] as const).map((score) => {
                           const scoreKey = score as keyof typeof scoreColors;
                           const colorClass = scoreColors[scoreKey] || '';
-                          const isDisabled = score !== 'N/O' && inspectionItem.scoreDescriptions?.[score as keyof typeof inspectionItem.scoreDescriptions] === 'No score';
-                          
+                          const isDisabled =
+                            score !== 'N/O' &&
+                            inspectionItem.scoreDescriptions?.[score as keyof typeof inspectionItem.scoreDescriptions] === 'No score';
+                          const isSelected = inspectionItem.score === score;
+
                           return (
                             <Button
                               key={score}
-                              variant={inspectionItem.score === score ? "default" : "outline"}
-                              size="sm"
+                              variant={isSelected ? 'default' : 'outline'}
                               onClick={() => updateItemScore(inspectionItem.id, score)}
-                              className={`text-sm h-auto py-3 px-4 ${inspectionItem.score === score ? colorClass : ""}`}
+                              className={`h-12 md:h-auto md:py-3 text-xs md:text-sm font-medium ${isSelected ? colorClass : ''}`}
                               disabled={isDisabled}
                             >
-                              <div className="text-center">
-                                <div className="font-semibold">{scoreLabels[scoreKey]}</div>
-                              </div>
+                              {scoreLabels[scoreKey]}
                             </Button>
                           );
                         })}
                       </div>
-                      
-                      {/* Score Descriptions - Updated to include N/O */}
-                      <div className="space-y-2 text-sm">
-                        <div className="p-3 rounded border-l-4 border-gray-400 bg-gray-50">
-                          <span className="font-medium">N/O:</span> Not Observed - Use when item cannot be inspected
+
+                      {/* Score descriptions */}
+                      <div className="space-y-1.5 text-xs md:text-sm">
+                        <div className="p-2 md:p-3 rounded border-l-4 border-gray-400 bg-gray-50">
+                          <span className="font-medium">N/O:</span> Not Observed — item cannot be inspected
                         </div>
                         {[0, 1, 2, 3, 4].map((score) => {
                           const scoreKey = score as keyof typeof inspectionItem.scoreDescriptions;
                           const description = inspectionItem.scoreDescriptions?.[scoreKey];
                           if (!description || description === 'No score') return null;
-                          
+
                           return (
-                            <div 
-                              key={score} 
-                              className={`p-3 rounded border-l-4 ${
+                            <div
+                              key={score}
+                              className={`p-2 md:p-3 rounded border-l-4 ${
                                 score === 0 ? 'border-red-400 bg-red-50' :
                                 score === 1 ? 'border-orange-400 bg-orange-50' :
                                 score === 2 ? 'border-yellow-400 bg-yellow-50' :
@@ -132,20 +132,20 @@ const InspectionCategoryForm = ({ category }: InspectionCategoryFormProps) => {
                           );
                         })}
                       </div>
-                      
-                      {/* Current Score Display - Updated to handle N/O */}
+
+                      {/* Current score badge */}
                       {inspectionItem.score !== null && (
-                        <div className="mt-4">
-                          <Badge 
+                        <div>
+                          <Badge
                             variant="secondary"
-                            className={`${scoreColors[inspectionItem.score as keyof typeof scoreColors]?.replace('hover:', '') || 'bg-gray-500'} text-white text-base px-4 py-2`}
+                            className={`${scoreColors[inspectionItem.score as keyof typeof scoreColors]?.replace(/hover:[^ ]+/g, '') || 'bg-gray-500'} text-white text-xs md:text-sm px-3 py-1`}
                           >
-                            Score: {inspectionItem.score} - {scoreLabels[inspectionItem.score as keyof typeof scoreLabels]}
+                            Selected: {inspectionItem.score} — {scoreLabels[inspectionItem.score as keyof typeof scoreLabels]}
                           </Badge>
                         </div>
                       )}
 
-                      {/* Photo Upload Section */}
+                      {/* Photos */}
                       <InspectionItemPhoto
                         inspectionId={currentInspection.id}
                         itemId={inspectionItem.id}
