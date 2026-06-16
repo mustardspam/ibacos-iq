@@ -25,7 +25,7 @@ const App = () => (
       <Sonner />
       <AuthProvider>
         <InspectionProvider>
-          <BrowserRouter>
+          <BrowserRouter basename={import.meta.env.BASE_URL}>
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/change-password" element={
