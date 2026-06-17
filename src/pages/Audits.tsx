@@ -104,14 +104,14 @@ const Audits = () => {
 
   const getScoreColor = (score: number) => {
     if (score >= 3.1) return 'text-green-600';
-    if (score >= 2.6) return 'text-blue-600';
+    if (score >= 2.6) return 'text-primary';
     if (score >= 2.2) return 'text-yellow-600';
     if (score >= 1.8) return 'text-orange-600';
     return 'text-red-600';
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100">
+    <div className="min-h-screen bg-background">
       <Navigation />
 
       <div className="container mx-auto px-3 md:px-4 py-6 md:py-8 max-w-5xl">
@@ -120,7 +120,7 @@ const Audits = () => {
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Audits</h1>
             <p className="text-gray-600 text-sm md:text-base mt-1">Multi-neighborhood official audit simulations</p>
           </div>
-          <Button onClick={() => setShowCreate(true)} className="bg-blue-600 hover:bg-blue-700">
+          <Button onClick={() => setShowCreate(true)} className="">
             <Plus className="h-4 w-4 mr-1.5" />
             <span className="hidden sm:inline">New Audit</span>
             <span className="sm:hidden">New</span>
@@ -135,7 +135,7 @@ const Audits = () => {
               <ClipboardList className="h-14 w-14 text-gray-300 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900 mb-2">No audits yet</h3>
               <p className="text-gray-500 mb-6 text-sm">Create a multi-neighborhood audit to simulate an official inspection.</p>
-              <Button onClick={() => setShowCreate(true)} className="bg-blue-600 hover:bg-blue-700">
+              <Button onClick={() => setShowCreate(true)} className="">
                 <Plus className="h-4 w-4 mr-2" />
                 Create First Audit
               </Button>
@@ -202,7 +202,7 @@ const Audits = () => {
                       </div>
                     </div>
                     <div className="mt-3 flex justify-end">
-                      <span className="text-blue-600 text-sm flex items-center gap-1">
+                      <span className="text-primary text-sm flex items-center gap-1">
                         Open <ArrowRight className="h-3.5 w-3.5" />
                       </span>
                     </div>
@@ -276,8 +276,7 @@ const Audits = () => {
             <Button
               onClick={handleCreate}
               disabled={creating || !auditName.trim() || selectedNeighborhoods.length < 2}
-              className="bg-blue-600 hover:bg-blue-700"
-            >
+                         >
               {creating ? 'Creating…' : 'Create Audit'}
             </Button>
           </DialogFooter>

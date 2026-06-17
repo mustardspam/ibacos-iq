@@ -5,8 +5,8 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // Use /ibacos-iq/ base path when building for GitHub Pages
-  base: mode === 'production' ? '/ibacos-iq/' : '/',
+  // Served from the root of the custom domain (ibacosiq.com)
+  base: '/',
   server: {
     host: "::",
     port: 8080,

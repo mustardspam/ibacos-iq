@@ -179,7 +179,7 @@ const NeighborhoodSelection = ({ onStartInspection }: NeighborhoodSelectionProps
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 max-w-2xl">
         <div className="mb-8">
           <Button 
@@ -276,7 +276,7 @@ const NeighborhoodSelection = ({ onStartInspection }: NeighborhoodSelectionProps
               ) : (
                 <Button 
                   onClick={handleStartNewInspection}
-                  className="w-full bg-blue-600 hover:bg-blue-700"
+                  className="w-full"
                   size="lg"
                   disabled={!selectedNeighborhood}
                 >

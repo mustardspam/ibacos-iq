@@ -52,7 +52,7 @@ const AuditDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100">
+      <div className="min-h-screen bg-background">
         <Navigation />
         <div className="flex items-center justify-center min-h-[60vh]">
           <p className="text-gray-500">Loading audit…</p>
@@ -63,7 +63,7 @@ const AuditDetail = () => {
 
   if (!audit) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100">
+      <div className="min-h-screen bg-background">
         <Navigation />
         <div className="flex items-center justify-center min-h-[60vh]">
           <p className="text-gray-500">Audit not found.</p>
@@ -102,7 +102,7 @@ const AuditDetail = () => {
 
   const getScoreColor = (score: number) => {
     if (score >= 3.1) return 'text-green-600';
-    if (score >= 2.6) return 'text-blue-600';
+    if (score >= 2.6) return 'text-primary';
     if (score >= 2.2) return 'text-yellow-600';
     if (score >= 1.8) return 'text-orange-600';
     return 'text-red-600';
@@ -148,7 +148,7 @@ const AuditDetail = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100">
+    <div className="min-h-screen bg-background">
       <Navigation />
 
       <div className="container mx-auto px-3 md:px-4 py-6 md:py-8 max-w-4xl">
@@ -162,7 +162,7 @@ const AuditDetail = () => {
         <div className="flex items-start justify-between gap-3 mb-6">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <ClipboardList className="h-5 w-5 text-blue-600" />
+              <ClipboardList className="h-5 w-5 text-primary" />
               <h1 className="text-xl md:text-2xl font-bold text-gray-900">{audit.name}</h1>
             </div>
             <p className="text-sm text-gray-500">Created {new Date(audit.createdAt).toLocaleDateString()}</p>
@@ -177,7 +177,7 @@ const AuditDetail = () => {
         </div>
 
         {/* Score + progress card */}
-        <Card className="mb-6 border-blue-100 bg-blue-50/50">
+        <Card className="mb-6 bg-muted/40 border">
           <CardContent className="pt-5 pb-5">
             <div className="flex items-center justify-between gap-6">
               <div className="flex-1">
@@ -260,8 +260,7 @@ const AuditDetail = () => {
                         <Button
                           size="sm"
                           onClick={() => handleStartNeighborhood(n)}
-                          className="bg-blue-600 hover:bg-blue-700"
-                        >
+                                                 >
                           <Play className="h-3.5 w-3.5 mr-1" />
                           Start
                         </Button>

@@ -30,7 +30,7 @@ const scoreColors = {
   0: 'bg-red-500 hover:bg-red-600',
   1: 'bg-orange-500 hover:bg-orange-600',
   2: 'bg-yellow-500 hover:bg-yellow-600', 
-  3: 'bg-blue-500 hover:bg-blue-600',
+  3: 'bg-primary hover:bg-primary/90',
   4: 'bg-green-500 hover:bg-green-600'
 };
 
@@ -123,9 +123,9 @@ const InspectionAccordion = ({ inspection }: InspectionAccordionProps) => {
                     console.log(`    Rendering subcategory ${subcategory}: ${subcategoryItems.length} items`);
                     
                     return (
-                      <Card key={subcategory} className="border-l-4 border-blue-500">
+                      <Card key={subcategory} className="border-l-4 border-primary">
                         <CardHeader>
-                          <CardTitle className="text-xl text-blue-700">{subcategory}</CardTitle>
+                          <CardTitle className="text-xl text-primary">{subcategory}</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-6">
                           {subcategoryItems.map((inspectionItem) => {
@@ -172,7 +172,7 @@ const InspectionAccordion = ({ inspection }: InspectionAccordionProps) => {
                                             score === 0 ? 'border-red-400 bg-red-50' :
                                             score === 1 ? 'border-orange-400 bg-orange-50' :
                                             score === 2 ? 'border-yellow-400 bg-yellow-50' :
-                                            score === 3 ? 'border-blue-400 bg-blue-50' :
+                                            score === 3 ? 'border-primary/60 bg-primary/5' :
                                             'border-green-400 bg-green-50'
                                           }`}
                                         >

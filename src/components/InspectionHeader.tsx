@@ -66,7 +66,7 @@ const InspectionHeader = ({
           <p className="text-gray-600 text-sm md:text-base">
             {new Date(date).toLocaleDateString()}
             {isAuditMode && (
-              <span className="ml-2 inline-flex items-center gap-1 text-blue-600 text-xs font-medium">
+              <span className="ml-2 inline-flex items-center gap-1 text-primary text-xs font-medium">
                 <ClipboardList className="h-3 w-3" />
                 Audit
               </span>

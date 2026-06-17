@@ -50,7 +50,7 @@ const Reports = () => {
 
   const getScoreColor = (score: number) => {
     if (score >= 3.1) return 'text-green-600';
-    if (score >= 2.6) return 'text-blue-600';
+    if (score >= 2.6) return 'text-primary';
     if (score >= 2.2) return 'text-yellow-600';
     if (score >= 1.8) return 'text-orange-600';
     return 'text-red-600';
@@ -58,14 +58,14 @@ const Reports = () => {
 
   const getScoreBadgeColor = (score: number) => {
     if (score >= 3.1) return 'bg-green-100 text-green-800';
-    if (score >= 2.6) return 'bg-blue-100 text-blue-800';
+    if (score >= 2.6) return 'bg-primary/10 text-primary';
     if (score >= 2.2) return 'bg-yellow-100 text-yellow-800';
     if (score >= 1.8) return 'bg-orange-100 text-orange-800';
     return 'bg-red-100 text-red-800';
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100">
+    <div className="min-h-screen bg-background">
       <Navigation />
       
       <div className="container mx-auto px-4 py-8 max-w-6xl">
@@ -89,7 +89,7 @@ const Reports = () => {
               <FileText className="h-16 w-16 text-gray-400 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900 mb-2">No Reports Yet</h3>
               <p className="text-gray-600 mb-6">Complete your first inspection to see reports here</p>
-              <Button onClick={() => navigate('/inspection')} className="bg-blue-600 hover:bg-blue-700">
+              <Button onClick={() => navigate('/inspection')}>
                 Start New Inspection
               </Button>
             </CardContent>

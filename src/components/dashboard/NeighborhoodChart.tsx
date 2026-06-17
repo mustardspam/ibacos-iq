@@ -18,22 +18,22 @@ const NeighborhoodChart = ({ data }: NeighborhoodChartProps) => {
 
   if (data.length === 0) {
     return (
-      <Card className="mb-8">
+      <Card className="mb-8 rounded-sm border shadow-none" style={{ borderColor: 'hsl(220, 14%, 88%)' }}>
         <CardContent className="text-center py-12">
-          <BarChartIcon className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No Performance Data Yet</h3>
-          <p className="text-gray-600 mb-6">Complete inspections to see neighborhood performance metrics</p>
+          <BarChartIcon className="h-12 w-12 mx-auto mb-4" style={{ color: 'hsl(220, 12%, 72%)' }} />
+          <h3 className="text-base font-semibold mb-2" style={{ color: 'hsl(220, 30%, 12%)' }}>No Performance Data Yet</h3>
+          <p className="text-sm" style={{ color: 'hsl(220, 12%, 52%)' }}>Complete inspections to see neighborhood performance metrics</p>
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <Card className="mb-8">
-      <CardHeader>
-        <CardTitle>Neighborhood Performance</CardTitle>
-        <CardDescription>
-          Average scores across neighborhoods (completed inspections) - Scale: 0-3.52 | Target: 3.24+
+    <Card className="mb-8 rounded-sm border shadow-none" style={{ borderColor: 'hsl(220, 14%, 88%)' }}>
+      <CardHeader className="pb-3">
+        <p className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: 'hsl(220, 12%, 46%)' }}>Neighborhood Performance</p>
+        <CardDescription className="text-xs">
+          Avg scores by neighborhood · Scale: 0–3.52 · Target: 3.24+
         </CardDescription>
       </CardHeader>
       <CardContent>

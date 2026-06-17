@@ -14,9 +14,9 @@ const Admin = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-slate-100">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
-          <div className="w-16 h-16 bg-blue-600 rounded-lg mx-auto mb-4 flex items-center justify-center animate-pulse">
+          <div className="w-16 h-16 rounded mx-auto mb-4 flex items-center justify-center animate-pulse" style={{ backgroundColor: 'hsl(215, 44%, 18%)' }}>
             <span className="text-white font-bold text-xl">IQ</span>
           </div>
           <p className="text-gray-600">Loading...</p>
@@ -40,7 +40,7 @@ const Admin = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <div className="flex items-center space-x-3 mb-2">
-            <Shield className="h-8 w-8 text-blue-600" />
+            <Shield className="h-8 w-8 text-primary" />
             <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
           </div>
           <p className="text-gray-600">Manage system settings, users, and data</p>

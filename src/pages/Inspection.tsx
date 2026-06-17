@@ -169,7 +169,7 @@ const Inspection = () => {
   // Loading state while audit inspection is being set up
   if (auditLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100">
+      <div className="min-h-screen bg-background">
         <Navigation />
         <div className="flex items-center justify-center min-h-[60vh]">
           <p className="text-gray-500">Loading inspection…</p>
@@ -191,7 +191,7 @@ const Inspection = () => {
   if (!currentInspection) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100">
+    <div className="min-h-screen bg-background">
       <Navigation />
 
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-8 max-w-6xl">

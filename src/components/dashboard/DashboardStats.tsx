@@ -9,44 +9,32 @@ interface DashboardStatsProps {
 }
 
 const DashboardStats = ({ totalInspections, avgScore, recentInspectionsCount }: DashboardStatsProps) => {
+  const stats = [
+    { label: 'Total Inspections', value: totalInspections, sub: null, icon: FileText },
+    { label: 'Average Score', value: avgScore || 0, sub: 'out of 3.52', icon: TrendingUp },
+    { label: 'This Month', value: recentInspectionsCount, sub: null, icon: Calendar },
+  ];
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-      <Card>
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Total Inspections</p>
-              <p className="text-3xl font-bold text-gray-900">{totalInspections}</p>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+      {stats.map(({ label, value, sub, icon: Icon }) => (
+        <Card key={label} className="rounded-sm border shadow-none" style={{ borderColor: 'hsl(220, 14%, 88%)' }}>
+          <CardContent className="p-6">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-[10px] font-semibold tracking-widest uppercase mb-3" style={{ color: 'hsl(220, 12%, 46%)' }}>
+                  {label}
+                </p>
+                <p className="text-4xl font-light" style={{ color: 'hsl(220, 30%, 12%)' }}>{value}</p>
+                {sub && <p className="text-xs mt-1" style={{ color: 'hsl(220, 12%, 60%)' }}>{sub}</p>}
+              </div>
+              <div className="p-2 rounded-sm" style={{ backgroundColor: 'hsl(215, 44%, 94%)' }}>
+                <Icon className="h-5 w-5" style={{ color: 'hsl(215, 44%, 28%)' }} />
+              </div>
             </div>
-            <FileText className="h-8 w-8 text-blue-600" />
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Average Score</p>
-              <p className="text-3xl font-bold text-gray-900">{avgScore || 0}</p>
-              <p className="text-xs text-gray-500">out of 3.52</p>
-            </div>
-            <TrendingUp className="h-8 w-8 text-green-600" />
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">This Month</p>
-              <p className="text-3xl font-bold text-gray-900">{recentInspectionsCount}</p>
-            </div>
-            <Calendar className="h-8 w-8 text-purple-600" />
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   );
 };

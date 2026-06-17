@@ -18,24 +18,24 @@ const QuickActions = ({ onStartNewInspection, onViewReports }: QuickActionsProps
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Quick Actions</CardTitle>
-        <CardDescription>Start a new inspection or view reports</CardDescription>
+    <Card className="rounded-sm border shadow-none" style={{ borderColor: 'hsl(220, 14%, 88%)' }}>
+      <CardHeader className="pb-3">
+        <p className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: 'hsl(220, 12%, 46%)' }}>Quick Actions</p>
+        <CardDescription className="text-xs">Start a new inspection or view reports</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <Button 
-          onClick={handleStartNewInspection} 
-          className="w-full bg-blue-600 hover:bg-blue-700"
-          size="lg"
+      <CardContent className="space-y-3">
+        <Button
+          onClick={handleStartNewInspection}
+          className="w-full h-11 rounded-sm text-xs font-semibold tracking-widest uppercase hover:opacity-90 transition-opacity"
+          style={{ backgroundColor: 'hsl(215, 44%, 18%)', color: 'white' }}
         >
           Start New Inspection
         </Button>
-        <Button 
-          onClick={onViewReports} 
-          variant="outline" 
-          className="w-full"
-          size="lg"
+        <Button
+          onClick={onViewReports}
+          variant="outline"
+          className="w-full h-11 rounded-sm text-xs font-semibold tracking-widest uppercase"
+          style={{ borderColor: 'hsl(215, 44%, 18%)', color: 'hsl(215, 44%, 18%)' }}
         >
           View All Reports
         </Button>

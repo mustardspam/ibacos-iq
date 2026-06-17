@@ -32,7 +32,7 @@ const InspectionTabs = ({ inspection, currentCategory, onCategoryChange }: Inspe
               <TabsTrigger 
                 key={category}
                 value={category} 
-                className="text-sm h-auto py-3 px-4 whitespace-nowrap flex-shrink-0 bg-transparent border-none data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-sm transition-all duration-200 ease-in-out"
+                className="text-sm h-auto py-3 px-4 whitespace-nowrap flex-shrink-0 bg-transparent border-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm transition-all duration-200 ease-in-out"
               >
                 <div className="flex flex-col items-center">
                   <span className="font-medium">{category}</span>
